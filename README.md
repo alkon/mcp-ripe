@@ -6,14 +6,15 @@ A lightweight JSON-RPC server that exposes **RIPE Database queries** via a simpl
 
 ## Table of Contents
 
-1. [Overview](#overview)  
-2. [Features](#features)  
-3. [Requirements](#requirements)  
-4. [Setup & Installation](#setup--installation)  
-5. [Usage](#usage)  
-6. [JSON-RPC Methods](#json-rpc-methods)  
-7. [Pros & Cons](#pros--cons)  
-8. [Future Enhancements](#future-enhancements)
+1. [Overview](#overview)
+2. [Why RIPE for Subdomain Analysis](#why-ripe-for-subdomain-analysis)
+3. [Features](#features)
+4. [Requirements](#requirements)
+5. [Setup & Installation](#setup--installation)
+6. [Usage](#usage)
+7. [JSON-RPC Methods](#json-rpc-methods)
+8. [Pros & Cons](#pros--cons)
+9. [Future Enhancements](#future-enhancements)
 
 ---
 
@@ -21,10 +22,43 @@ A lightweight JSON-RPC server that exposes **RIPE Database queries** via a simpl
 
 This server allows users to:
 
-- Query RIPE DB for IP addresses, AS numbers, and domain objects.  
-- Filter results dynamically based on patterns and limits.  
-- Access structured JSON output via **JSON-RPC**.  
+- Query RIPE DB for IP addresses, AS numbers, and domain objects.
+- Filter results dynamically based on patterns and limits.
+- Access structured JSON output via **JSON-RPC**.
 Built with **FastAPI** for high performance and easy deployment.
+
+---
+
+## Why RIPE for Subdomain Analysis
+
+RIPE's database is exceptionally valuable for subdomain analysis and security reconnaissance:
+
+### Regional Authority
+RIPE manages European, Middle Eastern, and Central Asian IP allocations - regions with high concentrations of hosting infrastructure, CDNs, and cloud services that attackers often exploit for subdomain takeover attacks.
+
+### Detailed Network Records
+Unlike simple DNS lookups, RIPE provides comprehensive network registration data including:
+- **inetnum/inet6num** records showing exact IP ranges and their owners
+- **route** objects revealing BGP routing relationships
+- **domain** objects linking reverse DNS to organizations
+- Contact information and abuse contacts for incident response
+
+### Historical Context
+RIPE maintains historical records of IP ownership changes, crucial for identifying:
+- Recently transferred IP blocks (often targets for abuse)
+- Infrastructure previously associated with malicious actors
+- Patterns in subdomain hosting across different time periods
+
+### Cross-Reference Capability
+RIPE data allows correlating subdomains across multiple dimensions:
+- Finding all IPs owned by the same organization
+- Discovering shared infrastructure between seemingly unrelated domains
+- Identifying shadow IT or forgotten subdomains on legacy IP ranges
+
+### Abuse Detection
+The **remarks** and **descr** fields often contain valuable metadata about network purpose, helping distinguish between legitimate corporate infrastructure and potentially compromised or suspicious hosting.
+
+For security analysis, this means you can map an organization's entire attack surface by discovering subdomains hosted on IP ranges they own but may have forgotten about - a critical blind spot in many security programs.
 
 ---
 
