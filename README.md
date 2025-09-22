@@ -6,14 +6,15 @@ A lightweight JSON-RPC server that exposes **RIPE Database queries** via a simpl
 
 ## Table of Contents
 
-1. [Overview](#overview)  
-2. [Features](#features)  
-3. [Requirements](#requirements)  
-4. [Setup & Installation](#setup--installation)  
-5. [Usage](#usage)  
-6. [JSON-RPC Methods](#json-rpc-methods)  
-7. [Pros & Cons](#pros--cons)  
-8. [Future Enhancements](#future-enhancements)
+1. [Overview](#overview)
+2. [Features](#features)
+3. [Requirements](#requirements)
+4. [Setup & Installation](#setup--installation)
+5. [Usage](#usage)
+6. [Testing](#testing)
+7. [JSON-RPC Methods](#json-rpc-methods)
+8. [Pros & Cons](#pros--cons)
+9. [Future Enhancements](#future-enhancements)
 
 ---
 
@@ -46,6 +47,8 @@ Built with **FastAPI** for high performance and easy deployment.
 - httpx >= 0.28.1
 - Pydantic >= 2.5.0
 - tqdm >= 4.66.0
+- pytest >= 7.4.0
+- requests >= 2.31.0
 
 See `requirements.txt` for exact versions.
 
@@ -71,7 +74,6 @@ uvicorn src.mcp_ripe_jsonrpc:app --reload --port 8000
 ```
 ## Usage
 
-
 Send JSON-RPC requests to the MCP endpoint:
 ```bash
 curl -X POST "http://127.0.0.1:8000/mcp" \
@@ -83,6 +85,30 @@ curl -X POST "http://127.0.0.1:8000/mcp" \
     "params": {"query": "193.0.6.142", "limit": 5}
 }'
 ```
+
+## Testing
+
+Run the test suite to verify the API functionality:
+
+```bash
+# Test dependencies are included in requirements.txt
+# If you need to install them separately:
+# pip install pytest requests
+
+# Start the server in one terminal
+uvicorn src.mcp_ripe_jsonrpc:app --reload --port 8000
+
+# Run tests in another terminal
+pytest tests/test_mcp.py -v
+```
+
+The test suite includes:
+- JSON-RPC endpoint validation
+- Query parameter testing
+- Response format verification
+- Error handling checks
+
+For manual testing, you can use the curl commands shown in the Usage section above.
 
 ## JSON-RPC Methods
 ***query_ripe***
